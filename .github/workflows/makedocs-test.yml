@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Python  3.7
         uses: actions/setup-python@v3
         with:
@@ -29,8 +31,6 @@ jobs:
           python -m pip install urubu
           python -m pip install markdown==2.6.11
       - name: Running Make
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           make
           git config user.name github-actions
