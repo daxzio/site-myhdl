@@ -109,7 +109,7 @@
  
 <h1>Cordic-based Sine Computer
 </h1>
-        <p><i>Last modified: 16-Apr-2022</i></p> 
+        <p><i>Last modified: 09-May-2022</i></p> 
     </div>
 
     <div class="row">
@@ -187,10 +187,10 @@ under test. Here is the code:</p>
     <span class="n">cos_z0</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="n">intbv</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="n">D</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">M</span><span class="o">+</span><span class="n">D</span><span class="p">))</span>
     <span class="n">sin_z0</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="n">intbv</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="n">M</span><span class="o">-</span><span class="n">D</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">M</span><span class="o">+</span><span class="n">D</span><span class="p">))</span>
     <span class="n">z0</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="n">intbv</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="n">ZMAX</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">ZMAX</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">done</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">start</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">done</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">clock</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="n">reset</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">reset</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># design under test</span>
     <span class="n">dut</span> <span class="o">=</span> <span class="n">SineComputer</span><span class="p">(</span><span class="n">cos_z0</span><span class="p">,</span> <span class="n">sin_z0</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">z0</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">clock</span><span class="p">,</span> <span class="n">reset</span><span class="p">)</span>
@@ -208,13 +208,13 @@ under test. Here is the code:</p>
     <span class="nd">@instance</span>
     <span class="k">def</span> <span class="nf">check</span><span class="p">():</span>
         <span class="k">yield</span> <span class="n">clock</span><span class="o">.</span><span class="n">negedge</span>
-        <span class="n">reset</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">reset</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">testAngles</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">clock</span><span class="o">.</span><span class="n">negedge</span>
             <span class="n">z0</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">M</span><span class="o">*</span><span class="n">z</span><span class="p">))</span>
-            <span class="n">start</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">start</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">yield</span> <span class="n">clock</span><span class="o">.</span><span class="n">negedge</span>
-            <span class="n">start</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">start</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">yield</span> <span class="n">done</span><span class="o">.</span><span class="n">posedge</span>
             <span class="n">exp_cos_z0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">M</span><span class="p">))</span>
             <span class="n">exp_sin_z0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">M</span><span class="p">))</span>
@@ -347,14 +347,14 @@ into a bit-parallel data path and a state machine.</p>
         <span class="n">i</span> <span class="o">=</span> <span class="n">intbv</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>       
         <span class="n">state</span> <span class="o">=</span> <span class="n">t_State</span><span class="o">.</span><span class="n">WAITING</span>
 
-        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">clock</span><span class="o">.</span><span class="n">posedge</span><span class="p">,</span> <span class="n">reset</span><span class="o">.</span><span class="n">posedge</span>
 
             <span class="k">if</span> <span class="n">reset</span><span class="p">:</span>
                 <span class="n">state</span> <span class="o">=</span> <span class="n">t_State</span><span class="o">.</span><span class="n">WAITING</span>
                 <span class="n">cos_z0</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">1</span>
                 <span class="n">sin_z0</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="n">done</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="n">done</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="n">x</span><span class="p">[:]</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="n">y</span><span class="p">[:]</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="n">z</span><span class="p">[:]</span> <span class="o">=</span> <span class="mi">0</span>
@@ -367,7 +367,7 @@ into a bit-parallel data path and a state machine.</p>
                         <span class="n">y</span><span class="p">[:]</span> <span class="o">=</span> <span class="mi">0</span>
                         <span class="n">z</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">z0</span>
                         <span class="n">i</span><span class="p">[:]</span> <span class="o">=</span> <span class="mi">0</span>
-                        <span class="n">done</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">False</span>
+                        <span class="n">done</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">False</span>
                         <span class="n">state</span> <span class="o">=</span> <span class="n">t_State</span><span class="o">.</span><span class="n">CALCULATING</span>
 
                 <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="n">t_State</span><span class="o">.</span><span class="n">CALCULATING</span><span class="p">:</span>
@@ -386,7 +386,7 @@ into a bit-parallel data path and a state machine.</p>
                         <span class="n">cos_z0</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">x</span>
                         <span class="n">sin_z0</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">y</span>
                         <span class="n">state</span> <span class="o">=</span> <span class="n">t_State</span><span class="o">.</span><span class="n">WAITING</span>
-                        <span class="n">done</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">True</span>
+                        <span class="n">done</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
 
@@ -437,111 +437,111 @@ the test bench:</p>
 <p>As before, the <code>dut</code> object is a simulatable design instance, but as a side
 effect of the instantiation, an equivalent Verilog module file will be
 generated. The Verilog output is as follows:</p>
-<div class="codehilite"><pre><span></span><span class="k">module</span> <span class="n">SineComputer</span> <span class="p">(</span>
-    <span class="n">cos_z0</span><span class="p">,</span>
-    <span class="n">sin_z0</span><span class="p">,</span>
-    <span class="n">done</span><span class="p">,</span>
-    <span class="n">z0</span><span class="p">,</span>
-    <span class="n">start</span><span class="p">,</span>
-    <span class="n">clock</span><span class="p">,</span>
-    <span class="n">reset</span>
-<span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">SineComputer</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">cos_z0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">sin_z0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">done</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">z0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">start</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">clock</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">reset</span><span class="w"></span>
+<span class="p">);</span><span class="w"></span>
 
-<span class="k">output</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">19</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">cos_z0</span><span class="p">;</span>
-<span class="kt">reg</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">19</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">cos_z0</span><span class="p">;</span>
-<span class="k">output</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">19</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">sin_z0</span><span class="p">;</span>
-<span class="kt">reg</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">19</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">sin_z0</span><span class="p">;</span>
-<span class="k">output</span> <span class="n">done</span><span class="p">;</span>
-<span class="kt">reg</span> <span class="n">done</span><span class="p">;</span>
-<span class="k">input</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">19</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">z0</span><span class="p">;</span>
-<span class="k">input</span> <span class="n">start</span><span class="p">;</span>
-<span class="k">input</span> <span class="n">clock</span><span class="p">;</span>
-<span class="k">input</span> <span class="n">reset</span><span class="p">;</span>
+<span class="k">output</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">19</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">cos_z0</span><span class="p">;</span><span class="w"></span>
+<span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">19</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">cos_z0</span><span class="p">;</span><span class="w"></span>
+<span class="k">output</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">19</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">sin_z0</span><span class="p">;</span><span class="w"></span>
+<span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">19</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">sin_z0</span><span class="p">;</span><span class="w"></span>
+<span class="k">output</span><span class="w"> </span><span class="n">done</span><span class="p">;</span><span class="w"></span>
+<span class="kt">reg</span><span class="w"> </span><span class="n">done</span><span class="p">;</span><span class="w"></span>
+<span class="k">input</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">19</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">z0</span><span class="p">;</span><span class="w"></span>
+<span class="k">input</span><span class="w"> </span><span class="n">start</span><span class="p">;</span><span class="w"></span>
+<span class="k">input</span><span class="w"> </span><span class="n">clock</span><span class="p">;</span><span class="w"></span>
+<span class="k">input</span><span class="w"> </span><span class="n">reset</span><span class="p">;</span><span class="w"></span>
 
 
 
-<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clock</span> <span class="k">or</span> <span class="k">posedge</span> <span class="n">reset</span><span class="p">)</span> <span class="k">begin</span><span class="o">:</span> <span class="n">_SineComputer_processor</span>
-    <span class="kt">reg</span> <span class="p">[</span><span class="mh">5</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">i</span><span class="p">;</span>
-    <span class="kt">reg</span> <span class="p">[</span><span class="mh">1</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">state</span><span class="p">;</span>
-    <span class="kt">reg</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">20</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">dz</span><span class="p">;</span>
-    <span class="kt">reg</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">20</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">dx</span><span class="p">;</span>
-    <span class="kt">reg</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">20</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">dy</span><span class="p">;</span>
-    <span class="kt">reg</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">20</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span><span class="p">;</span>
-    <span class="kt">reg</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">20</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x</span><span class="p">;</span>
-    <span class="kt">reg</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">20</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">z</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">reset</span><span class="p">)</span> <span class="k">begin</span>
-        <span class="n">state</span> <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-        <span class="n">cos_z0</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
-        <span class="n">sin_z0</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
-        <span class="n">done</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
-        <span class="n">z</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
-    <span class="k">end</span>
-    <span class="k">else</span> <span class="k">begin</span>
-        <span class="c1">// synthesis parallel_case full_case</span>
-        <span class="k">casez</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span>
-            <span class="mh">1</span><span class="mb">&#39;b0</span><span class="o">:</span> <span class="k">begin</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">start</span><span class="p">)</span> <span class="k">begin</span>
-                    <span class="n">x</span> <span class="o">=</span> <span class="mh">159188</span><span class="p">;</span>
-                    <span class="n">y</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
-                    <span class="n">z</span> <span class="o">=</span> <span class="n">z0</span><span class="p">;</span>
-                    <span class="n">i</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
-                    <span class="n">done</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
-                    <span class="n">state</span> <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
-                <span class="k">end</span>
-            <span class="k">end</span>
-            <span class="mh">1</span><span class="mb">&#39;b1</span><span class="o">:</span> <span class="k">begin</span>
-                <span class="n">dx</span> <span class="o">=</span> <span class="n">$signed</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">$signed</span><span class="p">({</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span> <span class="n">i</span><span class="p">}));</span>
-                <span class="n">dy</span> <span class="o">=</span> <span class="n">$signed</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">$signed</span><span class="p">({</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span> <span class="n">i</span><span class="p">}));</span>
-                <span class="c1">// synthesis parallel_case full_case</span>
-                <span class="k">case</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span>
-                    <span class="mh">0</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">205887</span><span class="p">;</span>
-                    <span class="mh">1</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">121542</span><span class="p">;</span>
-                    <span class="mh">2</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">64220</span><span class="p">;</span>
-                    <span class="mh">3</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">32599</span><span class="p">;</span>
-                    <span class="mh">4</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">16363</span><span class="p">;</span>
-                    <span class="mh">5</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">8189</span><span class="p">;</span>
-                    <span class="mh">6</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">4096</span><span class="p">;</span>
-                    <span class="mh">7</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">2048</span><span class="p">;</span>
-                    <span class="mh">8</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">1024</span><span class="p">;</span>
-                    <span class="mh">9</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">512</span><span class="p">;</span>
-                    <span class="mh">10</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">256</span><span class="p">;</span>
-                    <span class="mh">11</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">128</span><span class="p">;</span>
-                    <span class="mh">12</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">64</span><span class="p">;</span>
-                    <span class="mh">13</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">32</span><span class="p">;</span>
-                    <span class="mh">14</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">16</span><span class="p">;</span>
-                    <span class="mh">15</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">8</span><span class="p">;</span>
-                    <span class="mh">16</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">4</span><span class="p">;</span>
-                    <span class="mh">17</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">2</span><span class="p">;</span>
-                    <span class="k">default</span><span class="o">:</span> <span class="n">dz</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
-                <span class="k">endcase</span>
-                <span class="k">if</span> <span class="p">((</span><span class="n">z</span> <span class="o">&gt;=</span> <span class="mh">0</span><span class="p">))</span> <span class="k">begin</span>
-                    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">dx</span><span class="p">;</span>
-                    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">;</span>
-                    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span> <span class="o">-</span> <span class="n">dz</span><span class="p">;</span>
-                <span class="k">end</span>
-                <span class="k">else</span> <span class="k">begin</span>
-                    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">;</span>
-                    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">dy</span><span class="p">;</span>
-                    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span> <span class="o">+</span> <span class="n">dz</span><span class="p">;</span>
-                <span class="k">end</span>
-                <span class="k">if</span> <span class="p">((</span><span class="n">i</span> <span class="o">==</span> <span class="p">(</span><span class="mh">19</span> <span class="o">-</span> <span class="mh">1</span><span class="p">)))</span> <span class="k">begin</span>
-                    <span class="n">cos_z0</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">;</span>
-                    <span class="n">sin_z0</span> <span class="o">&lt;=</span> <span class="n">y</span><span class="p">;</span>
-                    <span class="n">state</span> <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-                    <span class="n">done</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
-                <span class="k">end</span>
-                <span class="k">else</span> <span class="k">begin</span>
-                    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mh">1</span><span class="p">;</span>
-                <span class="k">end</span>
-            <span class="k">end</span>
-        <span class="k">endcase</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clock</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">posedge</span><span class="w"> </span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="o">:</span><span class="w"> </span><span class="n">_SineComputer_processor</span><span class="w"></span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">5</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">state</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">20</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">dz</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">20</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">dx</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">20</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">dy</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">20</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">20</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">20</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">z</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">        </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">cos_z0</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">sin_z0</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">done</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// synthesis parallel_case full_case</span>
+<span class="w">        </span><span class="k">casez</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">start</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">                    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">159188</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z0</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="n">done</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="k">end</span><span class="w"></span>
+<span class="w">            </span><span class="k">end</span><span class="w"></span>
+<span class="w">            </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">                </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">$signed</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">$signed</span><span class="p">({</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">}));</span><span class="w"></span>
+<span class="w">                </span><span class="n">dy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">$signed</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">$signed</span><span class="p">({</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">}));</span><span class="w"></span>
+<span class="w">                </span><span class="c1">// synthesis parallel_case full_case</span>
+<span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">0</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">205887</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">1</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">121542</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">2</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">64220</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">3</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">32599</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">4</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">16363</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">5</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8189</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">6</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">4096</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">7</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2048</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">8</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1024</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">9</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">512</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">10</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">256</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">11</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">128</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">12</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">64</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">13</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">32</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">14</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">16</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">15</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">16</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">4</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="mh">17</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">dz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="k">endcase</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">z</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">))</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">                    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">dx</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dy</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">dz</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="k">end</span><span class="w"></span>
+<span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">                    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dx</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">dy</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dz</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="k">end</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="mh">19</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">1</span><span class="p">)))</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">                    </span><span class="n">cos_z0</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="n">sin_z0</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="n">done</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="k">end</span><span class="w"></span>
+<span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">                    </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="k">end</span><span class="w"></span>
+<span class="w">            </span><span class="k">end</span><span class="w"></span>
+<span class="w">        </span><span class="k">endcase</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
-<span class="k">endmodule</span>
+<span class="k">endmodule</span><span class="w"></span>
 </pre></div>
 
 
@@ -606,7 +606,7 @@ variables have to be declared as <code>signed</code>. This is the easy part.</p>
 two's complement representation, it works for positive and negative values of
 <code>y</code>.</p>
 <p>Now consider how this has been translated into Verilog:</p>
-<div class="codehilite"><pre><span></span><span class="n">dx</span> <span class="o">=</span> <span class="n">$signed</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">$signed</span><span class="p">({</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span> <span class="n">i</span><span class="p">}));</span>
+<div class="codehilite"><pre><span></span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">$signed</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">$signed</span><span class="p">({</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">}));</span><span class="w"></span>
 </pre></div>
 
 

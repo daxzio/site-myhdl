@@ -109,7 +109,7 @@
  
 <h1>StopWatch
 </h1>
-        <p><i>Last modified: 08-May-2022</i></p> 
+        <p><i>Last modified: 09-May-2022</i></p> 
     </div>
 
     <div class="row">
@@ -543,117 +543,117 @@ or VHDL automatically, using MyHDL's <code>convert</code> function:</p>
 
 
 <p>The resulting Verilog code is included in full:</p>
-<div class="codehilite"><pre><span></span><span class="k">module</span> <span class="n">StopWatch</span> <span class="p">(</span>
-    <span class="n">tens_led</span><span class="p">,</span>
-    <span class="n">ones_led</span><span class="p">,</span>
-    <span class="n">tenths_led</span><span class="p">,</span>
-    <span class="n">startstop</span><span class="p">,</span>
-    <span class="n">reset</span><span class="p">,</span>
-    <span class="n">clock</span>
-<span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">StopWatch</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">tens_led</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">ones_led</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">tenths_led</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">startstop</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">reset</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">clock</span><span class="w"></span>
+<span class="p">);</span><span class="w"></span>
 
-<span class="k">output</span> <span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">tens_led</span><span class="p">;</span>
-<span class="kt">reg</span> <span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">tens_led</span><span class="p">;</span>
-<span class="k">output</span> <span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">ones_led</span><span class="p">;</span>
-<span class="kt">reg</span> <span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">ones_led</span><span class="p">;</span>
-<span class="k">output</span> <span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">tenths_led</span><span class="p">;</span>
-<span class="kt">reg</span> <span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">tenths_led</span><span class="p">;</span>
-<span class="k">input</span> <span class="n">startstop</span><span class="p">;</span>
-<span class="k">input</span> <span class="n">reset</span><span class="p">;</span>
-<span class="k">input</span> <span class="n">clock</span><span class="p">;</span>
+<span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">tens_led</span><span class="p">;</span><span class="w"></span>
+<span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">tens_led</span><span class="p">;</span><span class="w"></span>
+<span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">ones_led</span><span class="p">;</span><span class="w"></span>
+<span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">ones_led</span><span class="p">;</span><span class="w"></span>
+<span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">tenths_led</span><span class="p">;</span><span class="w"></span>
+<span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">tenths_led</span><span class="p">;</span><span class="w"></span>
+<span class="k">input</span><span class="w"> </span><span class="n">startstop</span><span class="p">;</span><span class="w"></span>
+<span class="k">input</span><span class="w"> </span><span class="n">reset</span><span class="p">;</span><span class="w"></span>
+<span class="k">input</span><span class="w"> </span><span class="n">clock</span><span class="p">;</span><span class="w"></span>
 
-<span class="kt">reg</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">ones</span><span class="p">;</span>
-<span class="kt">reg</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">tens</span><span class="p">;</span>
-<span class="kt">reg</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">tenths</span><span class="p">;</span>
+<span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">ones</span><span class="p">;</span><span class="w"></span>
+<span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">tens</span><span class="p">;</span><span class="w"></span>
+<span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">tenths</span><span class="p">;</span><span class="w"></span>
 
 
-<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clock</span><span class="p">,</span> <span class="k">posedge</span> <span class="n">reset</span><span class="p">)</span> <span class="k">begin</span><span class="o">:</span> <span class="n">STOPWATCH_TIMECOUNT0_LOGIC</span>
-    <span class="kt">reg</span> <span class="n">seen</span><span class="p">;</span>
-    <span class="kt">reg</span> <span class="n">counting</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">reset</span><span class="p">)</span> <span class="k">begin</span>
-        <span class="n">tens</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
-        <span class="n">ones</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
-        <span class="n">tenths</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
-        <span class="n">seen</span> <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-        <span class="n">counting</span> <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-    <span class="k">end</span>
-    <span class="k">else</span> <span class="k">begin</span>
-        <span class="k">if</span> <span class="p">((</span><span class="n">startstop</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">!</span><span class="n">seen</span><span class="p">)))</span> <span class="k">begin</span>
-            <span class="n">seen</span> <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
-            <span class="n">counting</span> <span class="o">=</span> <span class="p">(</span><span class="o">!</span><span class="n">counting</span><span class="p">);</span>
-        <span class="k">end</span>
-        <span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="o">!</span><span class="n">startstop</span><span class="p">))</span> <span class="k">begin</span>
-            <span class="n">seen</span> <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-        <span class="k">end</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">counting</span><span class="p">)</span> <span class="k">begin</span>
-            <span class="k">if</span> <span class="p">((</span><span class="n">tenths</span> <span class="o">==</span> <span class="mh">9</span><span class="p">))</span> <span class="k">begin</span>
-                <span class="n">tenths</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
-                <span class="k">if</span> <span class="p">((</span><span class="n">ones</span> <span class="o">==</span> <span class="mh">9</span><span class="p">))</span> <span class="k">begin</span>
-                    <span class="n">ones</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
-                    <span class="k">if</span> <span class="p">((</span><span class="n">tens</span> <span class="o">==</span> <span class="mh">5</span><span class="p">))</span> <span class="k">begin</span>
-                        <span class="n">tens</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
-                    <span class="k">end</span>
-                    <span class="k">else</span> <span class="k">begin</span>
-                        <span class="n">tens</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">tens</span> <span class="o">+</span> <span class="mh">1</span><span class="p">);</span>
-                    <span class="k">end</span>
-                <span class="k">end</span>
-                <span class="k">else</span> <span class="k">begin</span>
-                    <span class="n">ones</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">ones</span> <span class="o">+</span> <span class="mh">1</span><span class="p">);</span>
-                <span class="k">end</span>
-            <span class="k">end</span>
-            <span class="k">else</span> <span class="k">begin</span>
-                <span class="n">tenths</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">tenths</span> <span class="o">+</span> <span class="mh">1</span><span class="p">);</span>
-            <span class="k">end</span>
-        <span class="k">end</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clock</span><span class="p">,</span><span class="w"> </span><span class="k">posedge</span><span class="w"> </span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="o">:</span><span class="w"> </span><span class="n">STOPWATCH_TIMECOUNT0_LOGIC</span><span class="w"></span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="n">seen</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="n">counting</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">        </span><span class="n">tens</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">ones</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">tenths</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">seen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">counting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">startstop</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">seen</span><span class="p">)))</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">            </span><span class="n">seen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="n">counting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">counting</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">end</span><span class="w"></span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="o">!</span><span class="n">startstop</span><span class="p">))</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">            </span><span class="n">seen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">end</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">counting</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">tenths</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">9</span><span class="p">))</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">                </span><span class="n">tenths</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">ones</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">9</span><span class="p">))</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">                    </span><span class="n">ones</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">tens</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">5</span><span class="p">))</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">                        </span><span class="n">tens</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="k">end</span><span class="w"></span>
+<span class="w">                    </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">                        </span><span class="n">tens</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="p">(</span><span class="n">tens</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">                    </span><span class="k">end</span><span class="w"></span>
+<span class="w">                </span><span class="k">end</span><span class="w"></span>
+<span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">                    </span><span class="n">ones</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="p">(</span><span class="n">ones</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="k">end</span><span class="w"></span>
+<span class="w">            </span><span class="k">end</span><span class="w"></span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">                </span><span class="n">tenths</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="p">(</span><span class="n">tenths</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">end</span><span class="w"></span>
+<span class="w">        </span><span class="k">end</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
-<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clock</span><span class="p">)</span> <span class="k">begin</span><span class="o">:</span> <span class="n">STOPWATCH_BCD2LED0_LOGIC</span>
-    <span class="k">case</span> <span class="p">(</span><span class="n">tens</span><span class="p">)</span>
-        <span class="mh">0</span><span class="o">:</span> <span class="n">tens_led</span> <span class="o">&lt;=</span> <span class="mh">64</span><span class="p">;</span>
-        <span class="mh">1</span><span class="o">:</span> <span class="n">tens_led</span> <span class="o">&lt;=</span> <span class="mh">121</span><span class="p">;</span>
-        <span class="mh">2</span><span class="o">:</span> <span class="n">tens_led</span> <span class="o">&lt;=</span> <span class="mh">36</span><span class="p">;</span>
-        <span class="mh">3</span><span class="o">:</span> <span class="n">tens_led</span> <span class="o">&lt;=</span> <span class="mh">48</span><span class="p">;</span>
-        <span class="mh">4</span><span class="o">:</span> <span class="n">tens_led</span> <span class="o">&lt;=</span> <span class="mh">25</span><span class="p">;</span>
-        <span class="mh">5</span><span class="o">:</span> <span class="n">tens_led</span> <span class="o">&lt;=</span> <span class="mh">18</span><span class="p">;</span>
-        <span class="mh">6</span><span class="o">:</span> <span class="n">tens_led</span> <span class="o">&lt;=</span> <span class="mh">2</span><span class="p">;</span>
-        <span class="mh">7</span><span class="o">:</span> <span class="n">tens_led</span> <span class="o">&lt;=</span> <span class="mh">120</span><span class="p">;</span>
-        <span class="mh">8</span><span class="o">:</span> <span class="n">tens_led</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
-        <span class="k">default</span><span class="o">:</span> <span class="n">tens_led</span> <span class="o">&lt;=</span> <span class="mh">16</span><span class="p">;</span>
-    <span class="k">endcase</span>
-<span class="k">end</span>
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clock</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="o">:</span><span class="w"> </span><span class="n">STOPWATCH_BCD2LED0_LOGIC</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">tens</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="mh">0</span><span class="o">:</span><span class="w"> </span><span class="n">tens_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">64</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">1</span><span class="o">:</span><span class="w"> </span><span class="n">tens_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">121</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">2</span><span class="o">:</span><span class="w"> </span><span class="n">tens_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">36</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">3</span><span class="o">:</span><span class="w"> </span><span class="n">tens_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">48</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">4</span><span class="o">:</span><span class="w"> </span><span class="n">tens_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">25</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">5</span><span class="o">:</span><span class="w"> </span><span class="n">tens_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">18</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">6</span><span class="o">:</span><span class="w"> </span><span class="n">tens_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">2</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">7</span><span class="o">:</span><span class="w"> </span><span class="n">tens_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">120</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">8</span><span class="o">:</span><span class="w"> </span><span class="n">tens_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">tens_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">16</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">endcase</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
-<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clock</span><span class="p">)</span> <span class="k">begin</span><span class="o">:</span> <span class="n">STOPWATCH_BCD2LED1_LOGIC</span>
-    <span class="k">case</span> <span class="p">(</span><span class="n">ones</span><span class="p">)</span>
-        <span class="mh">0</span><span class="o">:</span> <span class="n">ones_led</span> <span class="o">&lt;=</span> <span class="mh">64</span><span class="p">;</span>
-        <span class="mh">1</span><span class="o">:</span> <span class="n">ones_led</span> <span class="o">&lt;=</span> <span class="mh">121</span><span class="p">;</span>
-        <span class="mh">2</span><span class="o">:</span> <span class="n">ones_led</span> <span class="o">&lt;=</span> <span class="mh">36</span><span class="p">;</span>
-        <span class="mh">3</span><span class="o">:</span> <span class="n">ones_led</span> <span class="o">&lt;=</span> <span class="mh">48</span><span class="p">;</span>
-        <span class="mh">4</span><span class="o">:</span> <span class="n">ones_led</span> <span class="o">&lt;=</span> <span class="mh">25</span><span class="p">;</span>
-        <span class="mh">5</span><span class="o">:</span> <span class="n">ones_led</span> <span class="o">&lt;=</span> <span class="mh">18</span><span class="p">;</span>
-        <span class="mh">6</span><span class="o">:</span> <span class="n">ones_led</span> <span class="o">&lt;=</span> <span class="mh">2</span><span class="p">;</span>
-        <span class="mh">7</span><span class="o">:</span> <span class="n">ones_led</span> <span class="o">&lt;=</span> <span class="mh">120</span><span class="p">;</span>
-        <span class="mh">8</span><span class="o">:</span> <span class="n">ones_led</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
-        <span class="k">default</span><span class="o">:</span> <span class="n">ones_led</span> <span class="o">&lt;=</span> <span class="mh">16</span><span class="p">;</span>
-    <span class="k">endcase</span>
-<span class="k">end</span>
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clock</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="o">:</span><span class="w"> </span><span class="n">STOPWATCH_BCD2LED1_LOGIC</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">ones</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="mh">0</span><span class="o">:</span><span class="w"> </span><span class="n">ones_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">64</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">1</span><span class="o">:</span><span class="w"> </span><span class="n">ones_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">121</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">2</span><span class="o">:</span><span class="w"> </span><span class="n">ones_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">36</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">3</span><span class="o">:</span><span class="w"> </span><span class="n">ones_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">48</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">4</span><span class="o">:</span><span class="w"> </span><span class="n">ones_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">25</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">5</span><span class="o">:</span><span class="w"> </span><span class="n">ones_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">18</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">6</span><span class="o">:</span><span class="w"> </span><span class="n">ones_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">2</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">7</span><span class="o">:</span><span class="w"> </span><span class="n">ones_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">120</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">8</span><span class="o">:</span><span class="w"> </span><span class="n">ones_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">ones_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">16</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">endcase</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
-<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clock</span><span class="p">)</span> <span class="k">begin</span><span class="o">:</span> <span class="n">STOPWATCH_BCD2LED2_LOGIC</span>
-    <span class="k">case</span> <span class="p">(</span><span class="n">tenths</span><span class="p">)</span>
-        <span class="mh">0</span><span class="o">:</span> <span class="n">tenths_led</span> <span class="o">&lt;=</span> <span class="mh">64</span><span class="p">;</span>
-        <span class="mh">1</span><span class="o">:</span> <span class="n">tenths_led</span> <span class="o">&lt;=</span> <span class="mh">121</span><span class="p">;</span>
-        <span class="mh">2</span><span class="o">:</span> <span class="n">tenths_led</span> <span class="o">&lt;=</span> <span class="mh">36</span><span class="p">;</span>
-        <span class="mh">3</span><span class="o">:</span> <span class="n">tenths_led</span> <span class="o">&lt;=</span> <span class="mh">48</span><span class="p">;</span>
-        <span class="mh">4</span><span class="o">:</span> <span class="n">tenths_led</span> <span class="o">&lt;=</span> <span class="mh">25</span><span class="p">;</span>
-        <span class="mh">5</span><span class="o">:</span> <span class="n">tenths_led</span> <span class="o">&lt;=</span> <span class="mh">18</span><span class="p">;</span>
-        <span class="mh">6</span><span class="o">:</span> <span class="n">tenths_led</span> <span class="o">&lt;=</span> <span class="mh">2</span><span class="p">;</span>
-        <span class="mh">7</span><span class="o">:</span> <span class="n">tenths_led</span> <span class="o">&lt;=</span> <span class="mh">120</span><span class="p">;</span>
-        <span class="mh">8</span><span class="o">:</span> <span class="n">tenths_led</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
-        <span class="k">default</span><span class="o">:</span> <span class="n">tenths_led</span> <span class="o">&lt;=</span> <span class="mh">16</span><span class="p">;</span>
-    <span class="k">endcase</span>
-<span class="k">end</span>
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clock</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="o">:</span><span class="w"> </span><span class="n">STOPWATCH_BCD2LED2_LOGIC</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">tenths</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="mh">0</span><span class="o">:</span><span class="w"> </span><span class="n">tenths_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">64</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">1</span><span class="o">:</span><span class="w"> </span><span class="n">tenths_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">121</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">2</span><span class="o">:</span><span class="w"> </span><span class="n">tenths_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">36</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">3</span><span class="o">:</span><span class="w"> </span><span class="n">tenths_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">48</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">4</span><span class="o">:</span><span class="w"> </span><span class="n">tenths_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">25</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">5</span><span class="o">:</span><span class="w"> </span><span class="n">tenths_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">18</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">6</span><span class="o">:</span><span class="w"> </span><span class="n">tenths_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">2</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">7</span><span class="o">:</span><span class="w"> </span><span class="n">tenths_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">120</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="mh">8</span><span class="o">:</span><span class="w"> </span><span class="n">tenths_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">tenths_led</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">16</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">endcase</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
-<span class="k">endmodule</span>
+<span class="k">endmodule</span><span class="w"></span>
 </pre></div>
 
 
