@@ -14,14 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     
     permissions:
-      contents: read
+      contents: wtite
       packages: write    
     
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          persist-credentials: false
+#         with:
+#           persist-credentials: false
       - name: Set up Python  3.7
         uses: actions/setup-python@v3
         with:
