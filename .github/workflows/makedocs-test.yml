@@ -36,3 +36,5 @@ jobs:
           git add _build/\*.html
           git commit -m "updating _build"
           git push
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
