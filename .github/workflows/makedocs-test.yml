@@ -29,6 +29,8 @@ jobs:
           python -m pip install urubu
           python -m pip install markdown==2.6.11
       - name: Running Make
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           make
           git config user.name github-actions
@@ -36,5 +38,3 @@ jobs:
           git add _build/\*.html
           git commit -m "updating _build"
           git push
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
